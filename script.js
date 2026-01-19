@@ -239,6 +239,7 @@ function createParticles() {
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
+        const randomX = Math.random() * 100 - 50;
         particle.style.cssText = `
             position: absolute;
             width: ${Math.random() * 3 + 1}px;
@@ -247,10 +248,35 @@ function createParticles() {
             border-radius: 50%;
             left: ${Math.random() * 100}%;
             top: ${Math.random() * 100}%;
-            animation: particleFloat ${Math.random() * 10 + 10}s linear infinite;
+            animation: particleFloat${i} ${Math.random() * 10 + 10}s linear infinite;
             animation-delay: ${Math.random() * 5}s;
             pointer-events: none;
         `;
+        
+        // Create unique animation for each particle
+        const keyframes = `
+            @keyframes particleFloat${i} {
+                0% {
+                    transform: translateY(0) translateX(0);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 0.5;
+                }
+                90% {
+                    opacity: 0.5;
+                }
+                100% {
+                    transform: translateY(-100vh) translateX(${randomX}px);
+                    opacity: 0;
+                }
+            }
+        `;
+        
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = keyframes;
+        document.head.appendChild(styleSheet);
+        
         hero.appendChild(particle);
     }
 }
@@ -258,23 +284,6 @@ function createParticles() {
 // Add particle float animation to CSS dynamically
 const style = document.createElement('style');
 style.textContent = `
-    @keyframes particleFloat {
-        0% {
-            transform: translateY(0) translateX(0);
-            opacity: 0;
-        }
-        10% {
-            opacity: 0.5;
-        }
-        90% {
-            opacity: 0.5;
-        }
-        100% {
-            transform: translateY(-100vh) translateX(${Math.random() * 100 - 50}px);
-            opacity: 0;
-        }
-    }
-    
     @keyframes pulse {
         0%, 100% {
             transform: scale(1);

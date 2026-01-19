@@ -144,7 +144,7 @@ NightLeafStudios/
 
 ## 📝 License
 
-© 2026 Nightleaf Studios. All rights reserved.
+© 2025 Nightleaf Studios. All rights reserved.
 
 ---
 
