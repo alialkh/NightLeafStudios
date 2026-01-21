@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>StoryNest – Data & Account Deletion Request</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color-scheme: light dark;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0f172a;
+      color: #e5e7eb;
+      display: flex;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      background: #020617;
+      border-radius: 18px;
+      padding: 2rem 1.75rem 2.2rem;
+      max-width: 520px;
+      width: 100%;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+    }
+    h1 {
+      margin: 0 0 0.4rem;
+      font-size: 1.6rem;
+    }
+    p.subtitle {
+      margin: 0 0 1.2rem;
+      font-size: 0.95rem;
+      color: #9ca3af;
+    }
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+      color: #e5e7eb;
+    }
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 0.55rem 0.7rem;
+      border-radius: 10px;
+      border: 1px solid #4b5563;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 0.95rem;
+      box-sizing: border-box;
+    }
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+    .field {
+      margin-bottom: 0.85rem;
+    }
+    .note {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-top: 0.2rem;
+    }
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin: 0.4rem 0 1rem;
+      font-size: 0.85rem;
+    }
+    .checkbox-row input {
+      margin-top: 0.15rem;
+    }
+    button {
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 0.7rem 1rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(135deg, #6366f1, #ec4899);
+      color: white;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, opacity 0.2s ease;
+      box-shadow: 0 12px 25px rgba(79, 70, 229, 0.45);
+    }
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 30px rgba(79, 70, 229, 0.6);
+      opacity: 0.97;
+    }
+    button:active {
+      transform: translateY(1px);
+      box-shadow: 0 8px 18px rgba(79, 70, 229, 0.35);
+    }
+    .footer-text {
+      margin-top: 0.9rem;
+      font-size: 0.75rem;
+      color: #9ca3af;
+      text-align: center;
+    }
+    a {
+      color: #a5b4fc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>StoryNest Data & Account Deletion</h1>
+    <p class="subtitle">
+      Use this form to request deletion of your StoryNest account and associated data.
+      Your email app will open with a pre-filled request.
+    </p>
+
+    <form id="deletionForm">
+      <div class="field">
+        <label for="fullName">Full Name (optional)</label>
+        <input type="text" id="fullName" name="fullName" placeholder="Jane Doe" />
+      </div>
+
+      <div class="field">
+        <label for="appEmail">Email used in the app <span style="color:#f97373">*</span></label>
+        <input type="email" id="appEmail" name="appEmail" required placeholder="you@example.com" />
+        <div class="note">
+          This should be the same email you used to sign up or log in to StoryNest, if applicable.
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="details">Additional details (optional)</label>
+        <textarea
+          id="details"
+          name="details"
+          placeholder="For example: usernames, device info, or anything else that helps us identify your account."
+        ></textarea>
+      </div>
+
+      <div class="checkbox-row">
+        <input type="checkbox" id="confirm" required />
+        <label for="confirm">
+          I confirm that I am requesting deletion of my StoryNest account and associated data linked to the email
+          provided above.
+        </label>
+      </div>
+
+      <button type="submit">Request Deletion via Email</button>
+
+      <p class="footer-text">
+        Having trouble? You can also email us directly at
+        <a href="mailto:nightleafstudios0@gmail.com?subject=StoryNest%20Data%20Deletion%20Request">
+          nightleafstudios0@gmail.com
+        </a>.
+      </p>
+    </form>
+  </div>
+
+  <script>
+    (function () {
+      const form = document.getElementById("deletionForm");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const fullName = document.getElementById("fullName").value.trim();
+        const appEmail = document.getElementById("appEmail").value.trim();
+        const details = document.getElementById("details").value.trim();
+
+        if (!appEmail) {
+          alert("Please enter the email you used in the app.");
+          return;
+        }
+
+        const to = "nightleafstudios0@gmail.com";
+        const subject = "StoryNest Data & Account Deletion Request";
+
+        let body = "Hello StoryNest Support,%0D%0A%0D%0A";
+        body += "I would like to request deletion of my StoryNest account and associated data.%0D%0A%0D%0A";
+        body += "Details:%0D%0A";
+        if (fullName) {
+          body += "- Full name: " + encodeURIComponent(fullName) + "%0D%0A";
+        }
+        body += "- Email used in the app: " + encodeURIComponent(appEmail) + "%0D%0A";
+        if (details) {
+          body += "- Additional information: " + encodeURIComponent(details) + "%0D%0A";
+        }
+        body += "%0D%0AThank you.";
+
+        const mailtoLink = "mailto:" + to + "?subject=" + encodeURIComponent(subject) + "&body=" + body;
+        window.location.href = mailtoLink;
+      });
+    })();
+  </script>
+</body>
+</html>
